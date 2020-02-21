@@ -26,10 +26,10 @@ class AppFixtures extends Fixture
         {
             $title= $faker->sentence();
             $slug = $slugify->slugify($title);
-            $content= $faker->sentence();
+            $content= $faker->sentence(10);
             //the objects
             $img= new Img();
-                $url= $faker->imageUrl($width = 640, $height = 480);
+                $url= $faker->imageUrl();
                 $alt= $faker->sentence();
                     $img->setUrl($url);
                     $img->setAlt($alt);
@@ -42,9 +42,9 @@ class AppFixtures extends Fixture
             
             $comment= new Comment();
                 $author= $faker->name(); 
-                $commentContent= $faker->sentence(5);
+                $commentContent= $faker->sentence(10);
                     $comment->setAuthor($author);
-                    $comment->setContent($author);
+                    $comment->setContent($commentContent);
                     $comment->setCreatedAt(new \DateTime('now'));
                         //$post->setComment($comment);
         
