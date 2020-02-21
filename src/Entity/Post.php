@@ -2,12 +2,18 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Img;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Post
 {
@@ -60,6 +66,18 @@ class Post
      */
     private $slug;
 
+    /**
+    * @ORM\PrePersist
+    * @ORM\PreUpdate
+    */
+    public function initializeSlug()
+    {
+        if(empty($this->slug)){
+            $slugify = new Slugify(); // Don't forget to import class
+            $this->slug= $slugify->slugify($this->title);
+        }
+    }
+    
     public function __construct()
     {
         $this->comment = new ArrayCollection();

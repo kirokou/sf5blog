@@ -160,23 +160,25 @@
             <h2 class="my-5 h3 text-center">Liste dernierès articles</h2>
 
             <div class="row">
-                
+
                 {% for post in posts %}
+                <!--var url-->
+                {% set url = path('post_show', {'slug':post.slug}) %}
                 <!--card-->
                 <div class="col-md-4">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <a href="#">
-                                <img style="height: 200px; width: 100%; display: block;" src="http://placehold.it/30x30" alt="Card image">
+                            <a href="{{ url }}">
+                                <img style="height: 200px; width: 100%; display: block;" src="{{ post.img.url }}" alt="{{ post.img.alt }}">
                             </a>
                         </div>
                         <div class="card-body">
-                            <a href="#">{{ post.title }}</a>
+                            <a href="{{ url }}">{{ post.title }}</a>
                             <div>{{ post.content | raw}}</div>
                         </div>
                         <div class="card-footer text-muted d-flex justify-content-between">
                             <div>
-                                <a href="#" class="card-link"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="" class="card-link"><i class="fas fa-pencil-alt"></i></a>
                                 <a href="#" class="card-link"><i class="fas fa-trash-alt"></i></a>
                             </div>
                         </div>
